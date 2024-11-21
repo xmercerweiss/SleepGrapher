@@ -1,17 +1,16 @@
 
 import matplotlib.pyplot as plt
 
-from utils import timekeeper as timeutil
-from utils import customio as ioutil
+from utils import timeutil
+from utils import ioutil
 
 from .entry import SleepEntry
 
 
 class Grapher:
 
-    def __init__(self, csv_filepath, output_filepath):
+    def __init__(self, csv_filepath):
         self._csv = csv_filepath
-        self._output = output_filepath
         self._axes = None
 
     def __call__(self, *args, **kwargs):
@@ -22,6 +21,7 @@ class Grapher:
         entries = self._build_entries(ranges)
         self._init_graph()
         self._graph_entries(entries)
+        plt.show()
 
     def _read_csv(self):
         ranges = []
@@ -63,7 +63,6 @@ class Grapher:
             color="#7e27a3",
             zorder=3
         )
-        plt.show()
 
     def _build_same_day_entry(self, start, end):
         first_minute = timeutil.minute_of_day(start)

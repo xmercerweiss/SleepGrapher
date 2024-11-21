@@ -17,3 +17,4 @@ class SleepEntry:
     @property
     def length(self):
         return self._length
+

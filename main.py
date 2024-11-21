@@ -1,7 +1,9 @@
 from src import RootWindow
 
+from utils import Grapher
 
-CONFIG = "CONFIG"
+
+CSV_PATH = "data/sleep.csv"
 
 
 def main():
@@ -13,3 +15,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
