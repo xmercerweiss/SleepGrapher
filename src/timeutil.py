@@ -2,18 +2,33 @@ import datetime as dt
 
 
 DATE_FMT = "%m/%d"
-TIME_FMT = "%I:%M%p"
-YEAR_FMT = "/%y"
+TIME_FMT = "%H:%M"
+YEAR_FMT = "/%Y"
 
 DATETIME_FMT = f"{TIME_FMT} {DATE_FMT}{YEAR_FMT}"
 
-READABLE_DATE_FMT = "%-m/%d"
-READABLE_TIME_FMT = "%-I:%M%p"
+READABLE_DATE_FMT = DATE_FMT
+READABLE_TIME_FMT = TIME_FMT
 READABLE_YEAR_FMT = ", '%y"
 
+PRINTABLE_MINUTE = "MM"
+PRINTABLE_HOUR = "HH"
+PRINTABLE_DAY = "dd"
+PRINTABLE_MONTH = "mm"
+PRINTABLE_YEAR = "yyyy"
+
 MINUTE = 60
-HOUR = 60 * 60
-DAY = 60 * 60 * 24
+HOUR = MINUTE * 60
+DAY = HOUR * 24
+
+
+def get_printable_datetime_format():
+    return DATETIME_FMT \
+        .replace("%H", PRINTABLE_HOUR) \
+        .replace("%M", PRINTABLE_MINUTE) \
+        .replace("%d", PRINTABLE_DAY) \
+        .replace("%m", PRINTABLE_MONTH) \
+        .replace("%Y", PRINTABLE_YEAR)
 
 
 def validate_datetime(datetime):
@@ -23,7 +38,10 @@ def validate_datetime(datetime):
 
 
 def str_to_datetime(string):
-    return dt.datetime.strptime(string, DATETIME_FMT).replace(tzinfo=dt.timezone.utc)
+    try:
+        return dt.datetime.strptime(string, DATETIME_FMT).replace(tzinfo=dt.timezone.utc)
+    except ValueError:
+        return None
 
 
 def date_as_str(datetime, *args, include_year=True):

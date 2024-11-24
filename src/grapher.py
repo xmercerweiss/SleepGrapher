@@ -1,8 +1,8 @@
 
 import matplotlib.pyplot as plt
 
-from utils import timeutil
-from utils import ioutil
+from . import timeutil
+from . import ioutil
 
 from .entry import SleepEntry
 
